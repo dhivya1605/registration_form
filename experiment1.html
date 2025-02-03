@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <style>
+            #reg{
+                margin:auto;
+                width:30%;
+                background:transparent;
+                border:1px solid black;
+                border-radius:2px;
+                font-size:18px;
+            }
+            body{
+                background-image:url('ticket.jpg');
+                background-size: cover;
+                background-repeat:no-repeat;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                backdrop-filter: blur(10px);
+  
+                
+
+                /*justify-content: center;*/
+                display: flex;
+                text-align:center;
+            }
+            input{
+                cursor:pointer;
+                border-radius:5px;
+            }
+           
+        </style>
+
+    </head>
+    <body>
+        <div class="container" id="reg">
+            <h2>Registeration</h2>
+        <form><br>
+            <label>User Name:</label><br><br>
+            <input type="text" name="fname" placeholder="Enter user name"><br><br>
+            <label>Full Name:</label><br><br>
+            <input type="text" name="name" placeholder="Enter your  name"><br><br>
+            <label for="mail">Email</label><br><br>
+            <input type="text" name="email" placeholder="Enter Email" id="mail"><br><br>
+            <label for="num">Phone Number</label><br><br>
+            <input type="number" name="phno" id="num" placeholder="Enter Phone number"><br><br>
+            <label for="bday">Date of Birth</label><br><br>
+            <input type="text" name="birth" id="bday" placeholder="Enter dd/mm/yyyy"><br><br>
+            <button type="button" onclick="validateForm()">Submit</button>
+            <script>
+                var success="true";
+                function validateEmail(email) {
+                    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    return emailPattern.test(email);
+                }
+
+                function validatePhone(phone) {
+                     const phonePattern = /^\d{10}$/;
+                    return phonePattern.test(phone);
+                }
+                function isValidDate(dateString) {
+                        const dateofbirth = /^\d{2}\/\d{2}\/\d{4}$/;
+                        if (!dateString.match(dateofbirth)) {
+                            return false;
+                        }
+                        const parts = dateString.split("/");
+                        const day = parseInt(parts[0], 10);
+                        const month = parseInt(parts[1], 10);
+                        const year = parseInt(parts[2], 10);
+                        if (year < 1900 || year > new Date().getFullYear()) {
+                            return false;
+                        }
+                        if (month < 1 || month > 12) {
+                            return false;
+                        }
+                        if (day < 1 || day > 31) {
+                            return false;
+                        }
+                        const date = new Date(year, month - 1, day);
+                        return date && date.getMonth() === month - 1;
+                    }
+
+                function validateForm() {
+                    const email = document.getElementById('mail').value;
+                    const phone = document.getElementById('num').value;
+                    const dob = document.getElementById('bday').value;
+
+                    if (!validateEmail(email)) {
+                         success ="false";
+                        alert(`${email} is not a valid email address.`);
+                    } 
+
+                    if (!validatePhone(phone)) {
+                        success ="false";
+                        alert(`${phone} is not a valid phone number.`);
+                    }
+                    if (!isValidDate(dob)) {
+                            success ="false";
+                            alert(`${dob} is not a valid date of birth.`);
+                        } 
+                        if(success){
+                            alert("Successfully Registered");
+                        }else{
+                            alert("Form is not registered successfully");
+                        }
+                }
+            </script>
+        </form>
+        </div>
+    </body>
+</html>
